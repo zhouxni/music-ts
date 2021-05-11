@@ -4,6 +4,10 @@ import px2rem from "../../util/px2rem";
 import { cellphone, emaillogin } from "../../api/login";
 import { phone, email } from "../../config/regexp";
 import { Toast } from "antd-mobile";
+import Button from "../../component/button";
+import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
+import { Decrypt, Encrypt } from "../../config/secret";
 const Wrap = styled.div`
   padding: ${px2rem(15)};
   display: flex;
@@ -17,35 +21,15 @@ const Input = styled.input`
   border-bottom: ${px2rem(1)} solid #e5e5e5;
   outline: none;
   padding: 0 10px;
-  font-size:${px2rem(14)};
-  background:
+  font-size: ${px2rem(14)};
   &::placeholder {
     color: #989898;
-  }
-`;
-const Button = styled.button`
-  width: 100%;
-  height: ${px2rem(40)};
-  border-radius: ${px2rem(4)};
-  margin-bottom: ${px2rem(15)};
-  border: none;
-  outline: none;
-  font-size: ${px2rem(14)};
-  background: ${(props) => props.color};
-  position: relative;
-  &:active::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.1);
   }
 `;
 function Login() {
   const [account, setAccount] = useState("");
   const [password, setPass] = useState("");
+  const history = useHistory();
   const login = () => {
     if (!account.trim()) {
       Toast.info("请输入邮箱或手机号");
@@ -60,12 +44,12 @@ function Login() {
       return;
     }
     if (phone.test(account)) {
-      cellphone({ phone: account, password }).then((res) => {
-        console.log(res);
+      cellphone({ phone: account, password }).then((res: any) => {
+        Cookies.set("token", Encrypt(res.token));
       });
     } else {
-      emaillogin({ email: account, password }).then((res) => {
-        console.log(res);
+      emaillogin({ email: account, password }).then((res: any) => {
+        Cookies.set("token", Encrypt(res.token));
       });
     }
   };
@@ -87,8 +71,19 @@ function Login() {
       <Button color="#fce024" onClick={login}>
         登录
       </Button>
-      <Button color="#f2f2f0">手机号快捷登录</Button>
-      <a style={{ color: "#989898", fontSize: px2rem(13) }}>忘记密码</a>
+      <Button color="#f2f2f0" onClick={() => history.push("/phone")}>
+        手机号快捷登录
+      </Button>
+      <a
+        style={{ color: "#989898", fontSize: px2rem(13) }}
+        onClick={() =>
+          Toast.info("暂不支持，请用手机号一键登录", 3, () =>
+            history.push("/phone")
+          )
+        }
+      >
+        忘记密码
+      </a>
     </Wrap>
   );
 }

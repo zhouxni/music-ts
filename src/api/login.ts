@@ -12,3 +12,9 @@ export const emaillogin = (params: { email: string; password: string }) => {
     params,
   });
 };
+export const captchaSent = (params: { phone: string }) => {
+  return request({
+    url: "/captcha/sent",
+    params,
+  });
+};
