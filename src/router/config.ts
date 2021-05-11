@@ -10,6 +10,7 @@ interface Route {
   path: string;
   back?: boolean;
   children?: any[];
+  exact?: boolean;
 }
 const routes: Route[] = [
   { title: "用户登录", component: Login, path: "/login", back: false },
@@ -17,6 +18,7 @@ const routes: Route[] = [
   { title: "填写验证码", component: VerCode, path: "/vercode" },
   {
     component: Home,
+    exact: false,
     path: "/home",
     children: [
       {

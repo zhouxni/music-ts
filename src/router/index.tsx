@@ -14,9 +14,9 @@ function Router() {
         {Routes.map((route, index) => {
           return (
             <Route
+              exact={route.exact === false ? false : true}
               key={index}
               path={route.path}
-              exact
               render={() => <RouteChild route={route} />}
             />
           );
