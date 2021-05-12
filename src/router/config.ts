@@ -1,9 +1,9 @@
-import Login from "../views/login";
-import Phone from "../views/phone";
-import VerCode from "../views/verCode";
-import Home from "../views/home";
-import MusicLib from "../views/musicLib";
-import User from "../views/user";
+import Login from "@/views/login";
+import Phone from "@/views/phone";
+import VerCode from "@/views/verCode";
+import Home from "@/views/home";
+import MusicLib from "@/views/musicLib";
+import User from "@/views/user";
 interface Route {
   title?: string;
   component: (props: any) => JSX.Element;
@@ -11,6 +11,7 @@ interface Route {
   back?: boolean;
   children?: any[];
   exact?: boolean;
+  redirect?: string;
 }
 const routes: Route[] = [
   { title: "用户登录", component: Login, path: "/login", back: false },
@@ -20,6 +21,7 @@ const routes: Route[] = [
     component: Home,
     exact: false,
     path: "/home",
+    redirect: "/home/musicLib",
     children: [
       {
         component: MusicLib,

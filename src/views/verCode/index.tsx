@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import px2rem from "../../util/px2rem";
+import px2rem from "@/util/px2rem";
 import { useLocation } from "react-router-dom";
-import Button from "../../component/button";
-import { captchaSent } from "../../api/login";
-import { Encrypt, Decrypt } from "../../config/secret";
+import Button from "@Component/button";
+import { captchaSent } from "@Api/login";
 const Wrap = styled.div`
   padding: ${px2rem(20)};
   display: flex;
@@ -27,14 +26,14 @@ function VerCode() {
   const { state } = useLocation();
   const [second, setSecond] = useState(60);
   useEffect(() => {
-    //  captchaSent({ phone: (state as any).phone });
+    captchaSent({ phone: (state as any).phone });
     timeCount();
   }, []);
   const sendCapthch = () => {
     console.log(second);
     if (second === 0) {
       setSecond(60);
-      //   captchaSent({ phone: (state as any).phone });
+      captchaSent({ phone: (state as any).phone });
       timeCount();
     }
   };

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import px2rem from "../../util/px2rem";
-import { cellphone, emaillogin } from "../../api/login";
-import { phone, email } from "../../config/regexp";
+import px2rem from "@/util/px2rem";
+import { cellphone, emaillogin } from "@Api/login";
+import { phone, email } from "@Config/regexp";
 import { Toast } from "antd-mobile";
-import Button from "../../component/button";
+import Button from "@Component/button";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Decrypt, Encrypt } from "../../config/secret";
+import { Encrypt } from "@Config/secret";
 const Wrap = styled.div`
   padding: ${px2rem(15)};
   display: flex;

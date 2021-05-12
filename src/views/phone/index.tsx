@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import px2rem from "../../util/px2rem";
+import px2rem from "@/util/px2rem";
 import { useHistory } from "react-router-dom";
-import { phone as phoneCheck } from "../../config/regexp";
+import { phone as phoneCheck } from "@Config/regexp";
 import { Toast } from "antd-mobile";
-import Button from "../../component/button";
+import Button from "@Component/button";
 const Wrap = styled.div`
   padding: ${px2rem(15)};
   display: flex;
