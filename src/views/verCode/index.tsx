@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import { useLocation } from "react-router-dom";
@@ -69,4 +69,4 @@ function VerCode() {
   );
 }
 
-export default VerCode;
+export default memo(VerCode);

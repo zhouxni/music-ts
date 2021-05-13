@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 
 function User() {
   return <p>user</p>;
 }
 
-export default User;
+export default memo(User);

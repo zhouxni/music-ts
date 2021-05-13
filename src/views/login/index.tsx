@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import { cellphone, emaillogin } from "@Api/login";
@@ -88,4 +88,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default memo(Login);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import { useHistory } from "react-router-dom";
@@ -60,4 +60,4 @@ function Phone() {
   );
 }
 
-export default Phone;
+export default memo(Phone);

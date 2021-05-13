@@ -4,9 +4,11 @@ import VerCode from "@/views/verCode";
 import Home from "@/views/home";
 import MusicLib from "@/views/musicLib";
 import User from "@/views/user";
+import Songer from "@/views/songer";
+import Rank from "@/views/rank";
 interface Route {
   title?: string;
-  component: (props: any) => JSX.Element;
+  component: any;
   path: string;
   back?: boolean;
   children?: any[];
@@ -33,6 +35,8 @@ const routes: Route[] = [
       },
     ],
   },
+  { title: "歌手", component: Songer, path: "/songer" },
+  { title: "排行榜", component: Rank, path: "/rank" },
 ];
 
 export default routes;

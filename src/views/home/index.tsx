@@ -1,10 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { Route } from "react-router-dom";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import { NavLink } from "react-router-dom";
 import style from "./index.module.scss";
 import "@/assets/icon/iconfont.css";
+import Search from "./search";
 const Tab = styled.div`
   width: 100%;
   height: ${px2rem(50)};
@@ -17,10 +18,15 @@ function Home(props: { children: any[] }) {
   const { children } = props;
   return (
     <>
-      {children &&
-        children.map(({ component, path }, index) => {
-          return <Route exact key={index} path={path} component={component} />;
-        })}
+      <Search />
+      <div style={{ height: `calc(100% - ${px2rem(100)})` }}>
+        {children &&
+          children.map(({ component, path }, index) => {
+            return (
+              <Route key={index} exact path={path} component={component} />
+            );
+          })}
+      </div>
       <Tab>
         <NavLink
           className={style.nav}
@@ -50,4 +56,4 @@ function Home(props: { children: any[] }) {
     </>
   );
 }
-export default Home;
+export default memo(Home);

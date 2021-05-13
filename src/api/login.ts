@@ -1,4 +1,4 @@
-import request from "../config/request";
+import request from "@Config/request";
 export const cellphone = (params: { phone: string; password: string }) => {
   return request({
     url: "/login/cellphone",
