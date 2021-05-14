@@ -9,7 +9,7 @@ function MusicLib() {
     <>
       <Tabs
         tabBarBackgroundColor="#ffdf20"
-        tabBarUnderlineStyle={{ border: "1px solid #000" }}
+        tabBarUnderlineStyle={{ display:'none' }}
         tabBarTextStyle={{ color: "#76670d" }}
         tabBarActiveTextColor="#000"
         tabs={tabs}

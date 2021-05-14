@@ -1,6 +1,7 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import "@/assets/icon/iconfont.css";
 const DesName = styled.p`
   overflow: hidden;
@@ -12,12 +13,13 @@ const DesName = styled.p`
 `;
 function Category(props: { title: string; list: any[] }) {
   const { title, list } = props;
+  const memoList = useMemo(() => list, [list]);
   const traceNumber = (num: number) => {
     return String(num).length > 4 ? (num / 10000).toFixed(2) + "万" : num;
   };
   return (
     <div style={{ padding: `0 ${px2rem(8)}` }}>
-      <h3 style={{margin:`${px2rem(15)} 0`}}>{title}</h3>
+      <h3 style={{ margin: `${px2rem(15)} 0` }}>{title}</h3>
       <ul
         style={{
           display: "flex",
@@ -25,7 +27,7 @@ function Category(props: { title: string; list: any[] }) {
           justifyContent: "space-between",
         }}
       >
-        {list.map((song, index) => {
+        {memoList.map((song, index) => {
           return (
             <li
               style={{
@@ -35,10 +37,9 @@ function Category(props: { title: string; list: any[] }) {
               key={index}
             >
               <div style={{ position: "relative" }}>
-                <img
-                  alt=""
+                <LazyLoadImage
                   src={song.picUrl || song.coverUrl}
-                  style={{ width: "100%" }}
+                  width="100%"
                 />
                 <i
                   style={{

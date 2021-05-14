@@ -6,6 +6,8 @@ import MusicLib from "@/views/musicLib";
 import User from "@/views/user";
 import Songer from "@/views/songer";
 import Rank from "@/views/rank";
+import SongerDetail from "@/views/songerDetail";
+import PlayMv from "@/views/playmv";
 interface Route {
   title?: string;
   component: any;
@@ -37,6 +39,8 @@ const routes: Route[] = [
   },
   { title: "歌手", component: Songer, path: "/songer" },
   { title: "排行榜", component: Rank, path: "/rank" },
+  { component: SongerDetail, path: "/songerdetail" },
+  { title: "MV视频", component: PlayMv, path: "/playmv" },
 ];
 
 export default routes;

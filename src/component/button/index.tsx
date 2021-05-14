@@ -11,6 +11,7 @@ const Button = styled.button<{ fontColor?: string; color?: string }>`
   background: ${(props) => props.color || "inherit"};
   color: ${(props) => props.fontColor || "inherit"};
   position: relative;
+  overflow: hidden;
   &:active::before {
     content: "";
     position: absolute;

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import { Icon } from "antd-mobile";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useHistory } from "react-router-dom";
 const Wrap = styled.div`
   & > .topList {
     margin-top: ${px2rem(15)};
@@ -43,6 +44,7 @@ const Wrap = styled.div`
   }
 `;
 function Songer() {
+  const history = useHistory();
   const tab1 = useMemo(
     () => [
       { id: -1, name: "全部" },
@@ -97,7 +99,12 @@ function Songer() {
         <ul>
           {songerList.map((songer: any, index) => {
             return (
-              <li key={index}>
+              <li
+                onClick={() => {
+                  history.push(`/songerdetail?id=${songer.id}`);
+                }}
+                key={index}
+              >
                 <LazyLoadImage src={songer.img1v1Url} width={px2rem(50)} />
                 <div className="songInfo">
                   <h4>
