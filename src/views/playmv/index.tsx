@@ -19,7 +19,7 @@ function PlayMv() {
   const id = getUrlQuery(search).get("id");
   useEffect(() => {
     getMv({ id }).then((res) => {
-      // new Svideo("play", { source: res.data.url });
+      new Svideo("play", { source: res.data.url });
     });
     getComment({ id, type: 1 }).then((res: any) => {
       setComment(res.hotComments);
@@ -31,8 +31,8 @@ function PlayMv() {
   return (
     <Wrap>
       <div id="play"></div>
-      <Comment id={id} title="热门评论" list={comment} />
-      <Comment id={id} title="最新评论" list={newComment} />
+      <Comment type={1} title="热门评论" list={comment} />
+      <Comment type={1} title="最新评论" list={newComment} />
     </Wrap>
   );
 }

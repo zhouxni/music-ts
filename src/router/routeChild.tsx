@@ -19,7 +19,7 @@ function RouteChild(props: { route: any }) {
           overflow: "auto",
         }}
       >
-        <Route  children={children} />
+        <Route children={children} />
       </div>
     </>
   );

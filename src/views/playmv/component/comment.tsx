@@ -4,9 +4,7 @@ import { formatDate } from "@/util";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import "@/assets/icon/iconfont.css";
-import { Icon } from "antd-mobile";
-import { getFloorComment } from "@Api/songer";
-import song from "@/views/songerDetail/component/song";
+import FloorComment from "./floorComment";
 const Wrap = styled.div`
   .comment {
     padding: ${px2rem(15)};
@@ -51,7 +49,7 @@ const Wrap = styled.div`
   }
 `;
 const ListItem = styled.div``;
-function Comment(props: { list: any[]; title: string; id: string }) {
+function Comment(props: { list: any[]; title: string; type: number }) {
   const list = useMemo(() => props.list, [props.list]);
   return (
     <Wrap>
@@ -79,21 +77,7 @@ function Comment(props: { list: any[]; title: string; id: string }) {
               </div>
               <div className="comm_list">
                 <p>{comm.content}</p>
-                {comm.showFloorComment && comm.showFloorComment.showReplyCount && (
-                  <div
-                    className="floor"
-                    onClick={() =>
-                      getFloorComment({
-                        parentCommentId: comm.commentId,
-                        id: props.id,
-                        type: 1,
-                      })
-                    }
-                  >
-                    {comm.showFloorComment.replyCount}条回复
-                    <Icon type="right" size="xxs" />
-                  </div>
-                )}
+                <FloorComment type={props.type} info={comm} />
               </div>
             </ListItem>
           );

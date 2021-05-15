@@ -65,6 +65,7 @@
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.3",
     "react-dom": "^17.0.2",
+    "react-keep-alive": "^2.5.2",
     "react-lazy-load-image-component": "^1.5.1",
     "react-refresh": "^0.8.3",
     "react-router-dom": "^5.2.0",
@@ -170,5 +171,5 @@
     "@types/js-cookie": "^2.2.6",
     "@types/styled-components": "^5.1.9"
   },
-  "proxy": "http://192.168.7.114:4000"
+  "proxy": "http://192.168.1.100:4000"
 }

@@ -25,6 +25,7 @@ function Tab(props: { list: any[]; onSelect?: Function; active: number }) {
         return (
           <ListItem
             onClick={() => {
+              console.log('ooo')
               onSelect ? onSelect(item.id) : (() => {})();
             }}
             key={index}
