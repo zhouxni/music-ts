@@ -18,6 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "antd-mobile": "^2.3.4",
+    "audio-play": "^2.3.1",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.0",
@@ -62,11 +63,13 @@
     "postcss-safe-parser": "5.0.2",
     "prompts": "2.4.0",
     "react": "^17.0.2",
+    "react-activation": "^0.9.3",
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.3",
     "react-dom": "^17.0.2",
     "react-keep-alive": "^2.5.2",
     "react-lazy-load-image-component": "^1.5.1",
+    "react-player": "^2.9.0",
     "react-refresh": "^0.8.3",
     "react-router-dom": "^5.2.0",
     "resolve": "1.18.1",
@@ -164,12 +167,16 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "react-activation/babel"
     ]
   },
   "devDependencies": {
     "@types/crypto-js": "^4.0.1",
     "@types/js-cookie": "^2.2.6",
-    "@types/styled-components": "^5.1.9"
+    "@types/styled-components": "^5.1.9",
+    "audio-loader": "^1.0.3"
   },
   "proxy": "http://192.168.1.100:4000"
 }

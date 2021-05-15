@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 const Wrap = styled.div`
@@ -25,7 +25,6 @@ function Tab(props: { list: any[]; onSelect?: Function; active: number }) {
         return (
           <ListItem
             onClick={() => {
-              console.log('ooo')
               onSelect ? onSelect(item.id) : (() => {})();
             }}
             key={index}

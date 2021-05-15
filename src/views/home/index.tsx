@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import style from "./index.module.scss";
 import "@/assets/icon/iconfont.css";
 import Search from "./search";
-import { KeepAlive } from "react-keep-alive";
 const Tab = styled.div`
   width: 100%;
   height: ${px2rem(50)};
@@ -22,13 +21,9 @@ function Home(props: { children: any[] }) {
       <Search />
       <div style={{ height: `calc(100% - ${px2rem(100)})` }}>
         {children &&
-          children.map((route, index) => {
+          children.map(({ path, component }, index) => {
             return (
-              <Route key={index} exact path={route.path}>
-                <KeepAlive name={route.name}>
-                  <route.component />
-                </KeepAlive>
-              </Route>
+              <Route key={index} exact path={path} component={component} />
             );
           })}
       </div>

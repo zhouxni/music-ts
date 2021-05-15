@@ -55,6 +55,7 @@ function Comment(props: { list: any[]; title: string; type: number }) {
     <Wrap>
       <div className="comment">
         <h3 style={{ marginBottom: px2rem(15) }}>{props.title}</h3>
+        {list.length === 0 && <p style={{color:"#828282",textAlign:"center"}}>暂无评论...</p>}
         {list.map((comm, index) => {
           return (
             <ListItem key={index}>

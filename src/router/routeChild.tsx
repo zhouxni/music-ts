@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import NavBar from "../component/navBar";
 import { useHistory } from "react-router-dom";
 import px2rem from "@/util/px2rem";
-function RouteChild(props: { route: any }) {
+function RouteChild(props: any) {
   const { title, component: Route, back, children, redirect } = props.route;
   const history = useHistory();
   useEffect(() => {
@@ -19,7 +19,7 @@ function RouteChild(props: { route: any }) {
           overflow: "auto",
         }}
       >
-        <Route children={children} />
+        <Route {...props} children={children} />
       </div>
     </>
   );

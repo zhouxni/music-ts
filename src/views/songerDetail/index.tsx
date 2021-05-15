@@ -1,24 +1,28 @@
 import React, { memo, useEffect, useState } from "react";
 import { getUrlQuery } from "@/util/index";
-import { getSongerInfo, getArtist, getDesc } from "@Api/songer";
-import { useLocation } from "react-router-dom";
+import { getSongerInfo } from "@Api/songer";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import Button from "@Component/button";
 import { Icon, Tabs, Badge } from "antd-mobile";
-import { useHistory } from "react-router-dom";
 import Song from "./component/song";
 import Album from "./component/album";
 import Mv from "./component/mv";
 import Desc from "./component/desc";
+import { useActivate } from "react-activation";
 const Wrap = styled.div`
+  position: relative;
+  height: 100%;
   & > .header {
     height: ${px2rem(200)};
     background-color: #555459;
     display: flex;
     align-items: center;
     padding: 0 ${px2rem(20)};
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 999;
     margin-bottom: ${px2rem(15)};
     img {
       width: ${px2rem(120)};
@@ -35,31 +39,57 @@ const Wrap = styled.div`
       }
     }
   }
+  .am-tabs {
+    height: calc(100% - ${px2rem(215)});
+  }
+  .tabCon {
+    height: 100%;
+  }
 `;
 const IconWrap = styled.div`
   position: absolute;
   top: ${px2rem(14)};
   left: ${px2rem(10)};
 `;
-function SongerDetail() {
-  const { search } = useLocation();
-  const [songList, setSongList] = useState([]);
-  const [artist, setArtist] = useState<any>({});
+function SongerDetail(props: any) {
   const history = useHistory();
-  const id = getUrlQuery(search).get("id");
+  const [artist, setArtist] = useState<any>({});
   const tabs = [
-    { title: "单曲" },
-    { title: <Badge text={artist.albumSize || 0}>专辑</Badge> },
-    { title: <Badge text={artist.mvSize || 0}>MV</Badge> },
+    {
+      title: (
+        <Badge overflowCount={10000} text={artist.musicSize || 0}>
+          单曲
+        </Badge>
+      ),
+    },
+    {
+      title: (
+        <Badge overflowCount={10000} text={artist.albumSize || 0}>
+          专辑
+        </Badge>
+      ),
+    },
+    {
+      title: (
+        <Badge overflowCount={10000} text={artist.mvSize || 0}>
+          MV
+        </Badge>
+      ),
+    },
     { title: "详情" },
   ];
   const [tabIndex, setTabIndex] = useState(0);
+  const id = getUrlQuery(props.location.search).get("id");
   useEffect(() => {
     getSongerInfo({ id }).then((res: any) => {
-      setSongList(res.hotSongs);
       setArtist(res.artist);
     });
   }, []);
+  useActivate(() => {
+    getSongerInfo({ id }).then((res: any) => {
+      setArtist(res.artist);
+    });
+  });
   return (
     <Wrap>
       {Object.keys(artist).length > 0 && (
@@ -70,7 +100,7 @@ function SongerDetail() {
           <img alt="" src={artist.img1v1Url} />
           <div className="header_mess">
             <h3>{artist.name}</h3>
-            <span>{artist.alias[0]}</span>
+            <span>{artist.alias ? artist.alias[0] : ""}</span>
             <br />
             <Button
               style={{
@@ -96,10 +126,26 @@ function SongerDetail() {
           setTabIndex(index);
         }}
       >
-        {tabIndex === 0 && <Song list={songList} />}
-        {tabIndex === 1 && <Album />}
-        {tabIndex === 2 && <Mv />}
-        {tabIndex === 3 && <Desc />}
+        {tabIndex === 0 && (
+          <div className="tabCon">
+            <Song id={id} />
+          </div>
+        )}
+        {tabIndex === 1 && (
+          <div className="tabCon">
+            <Album id={id} />
+          </div>
+        )}
+        {tabIndex === 2 && (
+          <div className="tabCon">
+            <Mv />
+          </div>
+        )}
+        {tabIndex === 3 && (
+          <div className="tabCon">
+            <Desc />
+          </div>
+        )}
       </Tabs>
     </Wrap>
   );

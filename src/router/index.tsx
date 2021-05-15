@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import Routes from "./config";
 import RouteChild from "./routeChild";
-import { KeepAlive } from "react-keep-alive";
+import KeepAlive, { AliveScope } from "react-activation";
 function Router() {
   return (
     <Fragment>
@@ -12,26 +12,26 @@ function Router() {
           path="/"
           render={() => <Redirect to="/login"></Redirect>}
         />
-        {Routes.map((route, index) => {
-          if (route.keepAlive === false) {
+        <AliveScope>
+          {Routes.map((route, index) => {
             return (
               <Route
                 exact={route.exact === false ? false : true}
                 key={index}
                 path={route.path}
-                render={() => <RouteChild route={route} />}
+                render={(props) =>
+                  !route.keepAlive ? (
+                    <RouteChild route={route} />
+                  ) : (
+                    <KeepAlive saveScrollPosition='screen'>
+                      <RouteChild {...props} route={route} />
+                    </KeepAlive>
+                  )
+                }
               />
             );
-          } else {
-            return (
-              <Route key={index} path={route.path}>
-                <KeepAlive name={route.name}>
-                  <route.component />
-                </KeepAlive>
-              </Route>
-            );
-          }
-        })}
+          })}
+        </AliveScope>
       </Switch>
     </Fragment>
   );
