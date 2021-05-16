@@ -14,6 +14,7 @@ function RouteChild(props: any) {
     <>
       {title ? <NavBar title={title} back={back} /> : <></>}
       <div
+        id="routeChild"
         style={{
           height: title ? `calc(100% - ${px2rem(50)})` : "100%",
           overflow: "auto",

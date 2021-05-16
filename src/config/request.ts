@@ -6,7 +6,7 @@ const instance = axios.create({
 });
 instance.interceptors.request.use(
   (config) => {
-    Toast.loading("正在努力加载中...", 3, () => {}, true);
+    Toast.loading("正在努力加载中...", 0, () => {}, true);
     return config;
   },
   (error) => {

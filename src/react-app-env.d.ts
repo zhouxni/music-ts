@@ -71,6 +71,7 @@ declare module "*.module.sass" {
 }
 declare module "supervideo" {
   export const Svideo: any;
+  export const FullScreenControl: any;
 }
 
 declare module "audio-play" {

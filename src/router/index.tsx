@@ -10,7 +10,7 @@ function Router() {
         <Route
           exact
           path="/"
-          render={() => <Redirect to="/login"></Redirect>}
+          render={() => <Redirect to="/home"></Redirect>}
         />
         <AliveScope>
           {Routes.map((route, index) => {
@@ -21,9 +21,9 @@ function Router() {
                 path={route.path}
                 render={(props) =>
                   !route.keepAlive ? (
-                    <RouteChild route={route} />
+                    <RouteChild {...props} route={route} />
                   ) : (
-                    <KeepAlive saveScrollPosition='screen'>
+                    <KeepAlive saveScrollPosition={true}>
                       <RouteChild {...props} route={route} />
                     </KeepAlive>
                   )

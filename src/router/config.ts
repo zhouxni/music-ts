@@ -9,6 +9,7 @@ import Rank from "@/views/rank";
 import SongerDetail from "@/views/songerDetail";
 import PlayMv from "@/views/playmv";
 import PlayMusic from "@/views/playMusic";
+import Album from "@/views/album";
 interface Route {
   title?: string;
   component: any;
@@ -71,6 +72,11 @@ const routes: Route[] = [
     title: "畅听音乐",
     component: PlayMusic,
     path: "/playmusic",
+  },
+  {
+    component: Album,
+    path: "/album",
+    keepAlive: true,
   },
 ];
 

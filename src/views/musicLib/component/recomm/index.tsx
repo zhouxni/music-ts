@@ -62,7 +62,7 @@ function Recomm() {
     { title: "电台", icon: "icon-diantai2", color: "#fac54f" },
   ];
   return (
-    <>
+     <>
       {banners.length > 0 && (
         <Carousel infinite autoplay>
           {banners.map((banner: any, index) => {

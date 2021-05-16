@@ -7,7 +7,7 @@ const Wrap = styled.div<{ ref: any }>`
   .finish_text {
     color: #9e9e9e;
     text-align: center;
-    margin: ${px2rem(10)} 0;
+    margin: ${px2rem(15)} 0;
   }
 `;
 function Loadmore(props: any) {

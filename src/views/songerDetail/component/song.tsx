@@ -45,7 +45,7 @@ function Song(props: { id: string | null }) {
       }
       pageNo.current++;
     });
-  }, []);
+  }, [props.id]);
   const onLoad = () => {
     if (!load.current) {
       load.current = true;
@@ -53,16 +53,19 @@ function Song(props: { id: string | null }) {
         id: props.id,
         offset: (pageNo.current - 1) * 20,
         limit: 20,
-      }).then((res: any) => {
-        const newList = list.concat(res.songs);
-        load.current = false;
-        setList(newList);
-        if (newList.length >= res.total) {
-          setFinish(true);
-          return;
-        }
-        pageNo.current++;
-      });
+      })
+        .then((res: any) => {
+          const newList = list.concat(res.songs);
+          setList(newList);
+          if (newList.length >= res.total) {
+            setFinish(true);
+            return;
+          }
+          pageNo.current++;
+        })
+        .finally(() => {
+          load.current = false;
+        });
     }
   };
   return (

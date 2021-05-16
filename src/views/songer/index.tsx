@@ -104,19 +104,21 @@ function Songer() {
   const getList = (type: number, area: number, page: number) => {
     if (!load.current) {
       load.current = true;
-      getSonger({ type, area, offset: (page - 1) * 30 }).then((res: any) => {
-        setSongerList(songerList.concat(res.artists));
-        load.current = false;
-        if (!res.more) {
-          setFinish(true);
-          return;
-        }
-        pageNo.current++;
-      });
+      getSonger({ type, area, offset: (page - 1) * 30 })
+        .then((res: any) => {
+          setSongerList(songerList.concat(res.artists));
+          if (!res.more) {
+            setFinish(true);
+            return;
+          }
+          pageNo.current++;
+        })
+        .finally(() => {
+          load.current = false;
+        });
     }
   };
   const onLoad = () => {
-    console.log(555);
     getList(selectType, selectArea, pageNo.current);
   };
   return (

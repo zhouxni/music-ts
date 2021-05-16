@@ -55,12 +55,13 @@ function PlayMv() {
         offset: (pageNo.current - 1) * 20,
       }).then((res: any) => {
         setComment(comment.concat(res.comments));
-        load.current = false;
         if (comment.concat(res.comments).length > res.total) {
           setFinish(true);
           return;
         }
         pageNo.current++;
+      }).finally(()=>{
+        load.current = false;
       });
     }
   };

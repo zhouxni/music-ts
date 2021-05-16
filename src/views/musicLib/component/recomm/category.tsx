@@ -35,7 +35,9 @@ function Category(props: { title: string; list: any[] }) {
     <div style={{ padding: `0 ${px2rem(8)}` }}>
       {memoList.length > 0 && (
         <>
-          <h3 style={{ margin: `${px2rem(15)} 0` }}>{title}</h3>
+          <h3 style={{ margin: `${px2rem(15)} 0`, fontWeight: 700 }}>
+            {title}
+          </h3>
           <ul
             style={{
               display: "flex",

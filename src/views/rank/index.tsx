@@ -105,7 +105,7 @@ function Rank() {
             .filter((rank: any) => rank.tracks.length === 0)
             .map((rank: any, index) => {
               return (
-                <div className="official_item">
+                <div key={index} className="official_item">
                   <p className="date">
                     {formatDate(rank.updateTime, "MM-dd")}更新
                   </p>

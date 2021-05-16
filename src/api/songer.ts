@@ -126,3 +126,45 @@ export const getMvComment = (params: {
     params,
   });
 };
+
+export const getAlbumDetail = (params: { id: string | null }) => {
+  return request({
+    url: "/album",
+    params,
+  });
+};
+
+export const getAlbumDynamic = (params: { id: string | null }) => {
+  return request({
+    url: "/album/detail/dynamic",
+    params,
+  });
+};
+
+export const checkMusic = (params: { id: number }) => {
+  return request({
+    url: "check/music",
+    params,
+  });
+};
+
+export const getMvList = (params: { id: string | null; offset?: number }) => {
+  return request({
+    url: "/artist/mv",
+    params,
+  });
+};
+
+export const getArtistDetail = (params: { id: string | null }) => {
+  return request({
+    url: "/artist/detail",
+    params,
+  });
+};
+
+export const getSimiArtist = (params: { id: string | null }) => {
+  return request({
+    url: "/simi/artist",
+    params,
+  });
+};

@@ -10,7 +10,6 @@ import Song from "./component/song";
 import Album from "./component/album";
 import Mv from "./component/mv";
 import Desc from "./component/desc";
-import { useActivate } from "react-activation";
 const Wrap = styled.div`
   position: relative;
   height: 100%;
@@ -81,15 +80,11 @@ function SongerDetail(props: any) {
   const [tabIndex, setTabIndex] = useState(0);
   const id = getUrlQuery(props.location.search).get("id");
   useEffect(() => {
+    setTabIndex(0);
     getSongerInfo({ id }).then((res: any) => {
       setArtist(res.artist);
     });
-  }, []);
-  useActivate(() => {
-    getSongerInfo({ id }).then((res: any) => {
-      setArtist(res.artist);
-    });
-  });
+  }, [id]);
   return (
     <Wrap>
       {Object.keys(artist).length > 0 && (
@@ -122,6 +117,8 @@ function SongerDetail(props: any) {
         tabBarTextStyle={{ color: "#828282" }}
         tabBarActiveTextColor="#000"
         tabs={tabs}
+        destroyInactiveTab
+        page={tabIndex}
         onChange={(tab, index) => {
           setTabIndex(index);
         }}
@@ -138,12 +135,12 @@ function SongerDetail(props: any) {
         )}
         {tabIndex === 2 && (
           <div className="tabCon">
-            <Mv />
+            <Mv id={id} />
           </div>
         )}
         {tabIndex === 3 && (
           <div className="tabCon">
-            <Desc />
+            <Desc id={id} />
           </div>
         )}
       </Tabs>
