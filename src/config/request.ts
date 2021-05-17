@@ -2,11 +2,12 @@ import axios from "axios";
 import { Toast } from "antd-mobile";
 
 const instance = axios.create({
+  // baseURL:"/api",
   timeout: 30000,
 });
 instance.interceptors.request.use(
   (config) => {
-    Toast.loading("正在努力加载中...", 0, () => {}, true);
+    Toast.loading("请稍候...", 0, () => {}, true);
     return config;
   },
   (error) => {

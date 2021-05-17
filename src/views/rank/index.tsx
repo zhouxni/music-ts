@@ -4,6 +4,7 @@ import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import { formatDate } from "@/util/index";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useHistory } from "react-router-dom";
 const Wrap = styled.div`
   padding: ${px2rem(15)} ${px2rem(10)} 0;
   img {
@@ -64,6 +65,7 @@ const Wrap = styled.div`
 `;
 function Rank() {
   const [rankList, setRankList] = useState([]);
+  const history = useHistory();
   useEffect(() => {
     getRankDetail().then((res: any) => {
       setRankList(res.list);
@@ -75,7 +77,11 @@ function Rank() {
         .filter((rank: any) => rank.tracks.length)
         .map((rank: any, index) => {
           return (
-            <div key={index} className="list">
+            <div
+              key={index}
+              className="list"
+              onClick={() => history.push(`/rankdetail?id=${rank.id}`)}
+            >
               <div style={{ position: "relative" }}>
                 <p className="date">
                   {formatDate(rank.updateTime, "MM-dd")}更新
@@ -105,7 +111,11 @@ function Rank() {
             .filter((rank: any) => rank.tracks.length === 0)
             .map((rank: any, index) => {
               return (
-                <div key={index} className="official_item">
+                <div
+                  key={index}
+                  className="official_item"
+                  onClick={() => history.push(`/rankdetail?id=${rank.id}`)}
+                >
                   <p className="date">
                     {formatDate(rank.updateTime, "MM-dd")}更新
                   </p>

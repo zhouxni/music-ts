@@ -58,11 +58,11 @@ function Recomm() {
       color: "#79b1ee",
       path: "/rank",
     },
-    { title: "歌单", icon: "icon-gedan", color: "#7bd8bd" },
+    { title: "歌单", icon: "icon-gedan", color: "#7bd8bd", path: "/playlist" },
     { title: "电台", icon: "icon-diantai2", color: "#fac54f" },
   ];
   return (
-     <>
+    <>
       {banners.length > 0 && (
         <Carousel infinite autoplay>
           {banners.map((banner: any, index) => {
@@ -102,11 +102,13 @@ function Recomm() {
           );
         })}
       </TabWrap>
-      <Category title="推荐mv" list={mvList} />
-      <Category title="推荐新音乐" list={newSongList} />
-      <Category title="推荐歌单" list={recommSongList} />
-      <Category title="推荐电台" list={DjList} />
-      <Category title="推荐节目" list={recommRadio} />
+      <div style={{padding:`0 ${px2rem(8)}`}}>
+        <Category title="推荐mv" list={mvList} type={1} />
+        <Category title="推荐新音乐" list={newSongList} type={0} />
+        <Category title="推荐歌单" list={recommSongList} type={2} />
+        <Category title="推荐电台" list={DjList} type={4} />
+        <Category title="推荐节目" list={recommRadio} type={5} />
+      </div>
     </>
   );
 }

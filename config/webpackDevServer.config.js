@@ -15,6 +15,7 @@ const sockPath = process.env.WDS_SOCKET_PATH; // default: '/sockjs-node'
 const sockPort = process.env.WDS_SOCKET_PORT;
 
 module.exports = function (proxy, allowedHost) {
+  console.log(proxy,'------')
   return {
     // WebpackDevServer 2.4.3 introduced a security fix that prevents remote
     // websites from potentially accessing local content through DNS rebinding:
@@ -100,8 +101,17 @@ module.exports = function (proxy, allowedHost) {
       index: paths.publicUrlOrPath,
     },
     public: allowedHost,
-    // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy,
+    // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
+    // proxy:{
+    //   "/api":{
+    //     target:"http://192.168.7.114:4000",
+    //     changeOrigin:true,
+    //     pathRewrite:{
+    //       "^api":"/"
+    //     }
+    //   }
+    // },
     before(app, server) {
       // Keep `evalSourceMapMiddleware` and `errorOverlayMiddleware`
       // middlewares before `redirectServedPath` otherwise will not have any effect

@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { getUrlQuery } from "@/util";
 import { getMv, getMvComment } from "@Api/songer";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import "@/assets/icon/iconfont.css";
 import Comment from "@Component/comment";
@@ -16,11 +15,10 @@ const Wrap = styled.div`
     z-index: 1;
   }
 `;
-function PlayMv() {
-  const { search } = useLocation();
+function PlayMv(props:any) {
   const [comment, setComment] = useState([]);
   const [newComment, setNewComment] = useState([]);
-  const id = getUrlQuery(search).get("id");
+  const id = getUrlQuery(props.location.search).get("id");
   const pageNo = useRef(1);
   const load = useRef(false);
   const [finished, setFinish] = useState(false);
@@ -38,7 +36,7 @@ function PlayMv() {
       }
       pageNo.current++;
     });
-  }, []);
+  }, [id]);
   const loadmore = () => {
     if (!load.current) {
       load.current = true;
@@ -65,7 +63,13 @@ function PlayMv() {
         <div id="play">
           <video width="100%" controls src={url}></video>
         </div>
-        <Comment type={1} title="热门评论" list={comment} />
+        <Comment
+          bottomMsg={comment.length === 0 ? "" : "全部热门评论"}
+          id={id}
+          type={1}
+          title="热门评论"
+          list={comment}
+        />
         <Comment type={1} title="最新评论" list={newComment} />
       </Loadmore>
     </Wrap>

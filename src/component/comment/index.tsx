@@ -5,6 +5,8 @@ import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import "@/assets/icon/iconfont.css";
 import FloorComment from "./floorComment";
+import { Icon } from "antd-mobile";
+import { useHistory } from "react-router-dom";
 const Wrap = styled.div`
   .comment {
     padding: ${px2rem(15)};
@@ -37,6 +39,7 @@ const Wrap = styled.div`
       padding-left: ${px2rem(48)};
       p {
         margin: ${px2rem(10)} 0;
+        word-break: break-all;
       }
     }
     .floor {
@@ -46,16 +49,33 @@ const Wrap = styled.div`
       align-items: center;
       margin-bottom: ${px2rem(10)};
     }
+    .bottom {
+      display: flex;
+      padding-top: ${px2rem(20)};
+      color: #4b6593;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
 const ListItem = styled.div``;
-function Comment(props: { list: any[]; title: string; type: number }) {
+function Comment(props: {
+  id?: string | null;
+  list: any[];
+  title: string;
+  type: number;
+  bottomMsg?: string;
+}) {
+  const history = useHistory();
   const list = useMemo(() => props.list, [props.list]);
+  const { title, type, bottomMsg, id } = props;
   return (
     <Wrap>
       <div className="comment">
-        <h3 style={{ marginBottom: px2rem(15) }}>{props.title}</h3>
-        {list.length === 0 && <p style={{color:"#828282",textAlign:"center"}}>暂无评论...</p>}
+        <h3 style={{ marginBottom: px2rem(15) }}>{title}</h3>
+        {list.length === 0 && (
+          <p style={{ color: "#828282", textAlign: "center" }}>暂无评论...</p>
+        )}
         {list.map((comm, index) => {
           return (
             <ListItem key={index}>
@@ -78,11 +98,20 @@ function Comment(props: { list: any[]; title: string; type: number }) {
               </div>
               <div className="comm_list">
                 <p>{comm.content}</p>
-                <FloorComment type={props.type} info={comm} />
+                <FloorComment type={type} info={comm} />
               </div>
             </ListItem>
           );
         })}
+        {bottomMsg && (
+          <div
+            className="bottom"
+            onClick={() => history.push(`/hotcomment?id=${id}&type=${type}`)}
+          >
+            {bottomMsg}
+            <Icon type="right" size="xs" />
+          </div>
+        )}
       </div>
     </Wrap>
   );

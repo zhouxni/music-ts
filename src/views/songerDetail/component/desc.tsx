@@ -43,6 +43,7 @@ const Wrap = styled.div`
       h4 {
         white-space: pre-wrap;
         word-break: break-all;
+        text-align: center;
       }
     }
     img {
@@ -57,7 +58,7 @@ function Desc(props: { id: string | null }) {
   const [open, setOpen] = useState(false);
   const history = useHistory();
   const { id } = props;
-  console.log(1)
+  console.log(1);
   useEffect(() => {
     getArtistDetail({ id }).then((res) => {
       setDesc(res.data.artist);

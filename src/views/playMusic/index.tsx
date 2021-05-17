@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { getUrlQuery } from "@/util";
 import { getSongUrl, getMusicComment, getMusicDetail } from "@Api/songer";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import "@/assets/icon/iconfont.css";
 import Comment from "@Component/comment";
@@ -20,13 +19,12 @@ const Wrap = styled.div`
     background-size: 100% auto;
   }
 `;
-function PlayMv() {
-  const { search } = useLocation();
+function PlayMv(props: any) {
   const [url, setUrl] = useState("");
   const [comment, setComment] = useState([]);
   const [hotComment, setHotComment] = useState([]);
   const [song, setSong] = useState<any[]>([]);
-  const id = getUrlQuery(search).get("id");
+  const id = getUrlQuery(props.location.search).get("id");
   const pageNo = useRef(1);
   const load = useRef(false);
   const [finished, setFinish] = useState(false);
@@ -46,23 +44,25 @@ function PlayMv() {
       }
       pageNo.current++;
     });
-  }, []);
+  }, [id]);
   const loadmore = () => {
     if (!load.current) {
       load.current = true;
       getMusicComment({
         id,
         offset: (pageNo.current - 1) * 20,
-      }).then((res: any) => {
-        setComment(comment.concat(res.comments));
-        if (comment.concat(res.comments).length > res.total) {
-          setFinish(true);
-          return;
-        }
-        pageNo.current++;
-      }).finally(()=>{
-        load.current = false;
-      });
+      })
+        .then((res: any) => {
+          setComment(comment.concat(res.comments));
+          if (comment.concat(res.comments).length > res.total) {
+            setFinish(true);
+            return;
+          }
+          pageNo.current++;
+        })
+        .finally(() => {
+          load.current = false;
+        });
     }
   };
   return (
@@ -73,11 +73,18 @@ function PlayMv() {
           style={{
             backgroundImage:
               song.length > 0 ? `url(${song[0].al.picUrl})` : `none`,
+            backgroundColor: "#000",
           }}
         >
           <ReactPlayer width="100%" height={px2rem(200)} url={url} controls />
         </div>
-        <Comment type={0} title="热门评论" list={hotComment} />
+        <Comment
+          bottomMsg={hotComment.length === 0 ? "" : "全部热门评论"}
+          type={0}
+          title="热门评论"
+          list={hotComment}
+          id={id}
+        />
         <Comment type={0} title="最新评论" list={comment} />
       </Loadmore>
     </Wrap>

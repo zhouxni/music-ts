@@ -1,5 +1,6 @@
 import request from "@/config/request";
-
+// import Cookies from "js-cookie";
+// import { Decrypt } from "@Config/secret";
 export const getSonger = (params: {
   type?: number;
   area?: number;
@@ -165,6 +166,55 @@ export const getArtistDetail = (params: { id: string | null }) => {
 export const getSimiArtist = (params: { id: string | null }) => {
   return request({
     url: "/simi/artist",
+    params,
+  });
+};
+
+export const getPlayList = (params: { id: string | null }) => {
+  return request({
+    url: "/playlist/detail",
+    params,
+  });
+};
+
+export const getPlayListComment = (params: {
+  id: string | null;
+  offset?: number;
+}) => {
+  return request({
+    url: "/comment/playlist",
+    params,
+  });
+};
+
+export const getHotComment = (params: {
+  id: string | null;
+  offset?: number;
+  type: string | null;
+}) => {
+  return request({
+    url: "/comment/hot",
+    params,
+  });
+};
+
+export const getPlayListCategory = () => {
+  return request({
+    url: "/playlist/catlist",
+  });
+};
+
+export const getPlayListHot = () => {
+  return request({
+    url: "/playlist/hot",
+  });
+};
+
+export const getPlayListTop = (
+  params: { order?: string; offset?: number } = {}
+) => {
+  return request({
+    url: "/top/playlist",
     params,
   });
 };

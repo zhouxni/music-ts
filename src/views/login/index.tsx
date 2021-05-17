@@ -46,10 +46,12 @@ function Login() {
     if (phone.test(account)) {
       cellphone({ phone: account, password }).then((res: any) => {
         Cookies.set("token", Encrypt(res.token));
+        Cookies.set('security',Encrypt(res.cookie));
       });
     } else {
       emaillogin({ email: account, password }).then((res: any) => {
         Cookies.set("token", Encrypt(res.token));
+        Cookies.set('security',Encrypt(res.cookie));
       });
     }
   };

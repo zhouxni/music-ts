@@ -12,32 +12,33 @@ const DesName = styled.p`
   -webkit-box-orient: vertical;
   margin-top: ${px2rem(5)};
 `;
-function Category(props: { title: string; list: any[] }) {
-  const { title, list } = props;
+function Category(props: { title: string; list: any[]; type: number }) {
+  const { title, list, type } = props;
   const history = useHistory();
   const memoList = useMemo(() => list, [list]);
   const traceNumber = (num: number) => {
     return String(num).length > 4 ? (num / 10000).toFixed(2) + "万" : num;
   };
   const play = (id: number) => {
-    switch (title) {
-      case "推荐mv":
+    switch (type) {
+      case 1:
         history.push(`/playmv?id=${id}`);
         break;
-      case "推荐新音乐":
+      case 0:
         history.push(`/playmusic?id=${id}`);
+        break;
+      case 2:
+        history.push(`/rankDetail?id=${id}`);
         break;
       default:
         break;
     }
   };
   return (
-    <div style={{ padding: `0 ${px2rem(8)}` }}>
+    <>
+      <h3 style={{ margin: `${px2rem(15)} 0`, fontWeight: 700 }}>{title}</h3>
       {memoList.length > 0 && (
         <>
-          <h3 style={{ margin: `${px2rem(15)} 0`, fontWeight: 700 }}>
-            {title}
-          </h3>
           <ul
             style={{
               display: "flex",
@@ -59,7 +60,7 @@ function Category(props: { title: string; list: any[] }) {
                 >
                   <div style={{ position: "relative" }}>
                     <LazyLoadImage
-                      src={song.picUrl || song.coverUrl}
+                      src={song.picUrl || song.coverUrl || song.coverImgUrl}
                       width="100%"
                     />
                     <i
@@ -85,7 +86,7 @@ function Category(props: { title: string; list: any[] }) {
           </ul>
         </>
       )}
-    </div>
+    </>
   );
 }
 
