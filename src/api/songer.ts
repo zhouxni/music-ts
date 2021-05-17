@@ -211,10 +211,23 @@ export const getPlayListHot = () => {
 };
 
 export const getPlayListTop = (
-  params: { order?: string; offset?: number } = {}
+  params: { order?: string; offset?: number; cat?: string } = {}
 ) => {
   return request({
     url: "/top/playlist",
+    params,
+  });
+};
+
+export const getHighqualityTag = () => {
+  return request({
+    url: "/playlist/highquality/tags",
+  });
+};
+
+export const getHighqualityList = (params: { cat?: string; before?: number }) => {
+  return request({
+    url: "/top/playlist/highquality",
     params,
   });
 };

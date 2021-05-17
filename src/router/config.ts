@@ -14,6 +14,8 @@ import RankDetail from "@/views/rankDetail";
 import RankComment from "@/views/rankComment";
 import HotComment from "@/views/hotComment";
 import PlayList from "@/views/playList";
+import Boutique from "@/views/boutique";
+import AllCategory from "@/views/allCategory";
 interface Route {
   title?: string;
   component: any;
@@ -105,6 +107,16 @@ const routes: Route[] = [
     path: "/playlist",
     component: PlayList,
     keepAlive: true,
+  },
+  {
+    title: "精品专区",
+    path: "/boutique",
+    component: Boutique,
+  },
+  {
+    title: "全部分类",
+    path: "/allcategory",
+    component: AllCategory,
   },
 ];
 

@@ -9,6 +9,7 @@ import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import Category from "@/views/musicLib/component/recomm/category";
 import Loadmore from "@Component/loadmore";
+import { useHistory } from "react-router-dom";
 const Wrap = styled.div`
   padding: ${px2rem(15)};
   .category {
@@ -25,6 +26,10 @@ const Wrap = styled.div`
       &:not(:nth-child(3n + 3)) {
         margin-right: ${px2rem(10)};
       }
+    }
+    .tagActive {
+      background: #fce024;
+      color: #fff;
     }
   }
   .switch {
@@ -66,15 +71,25 @@ const Wrap = styled.div`
   }
 `;
 function PlayList() {
-  const [tags, setTag] = useState<any[]>([]);
+  const [tags, setTag] = useState<any[]>([{ name: "全部" }]);
   const [topList, setTopList] = useState<any[]>([]);
   const pageNo = useRef(1);
   const load = useRef(false);
   const [finished, setFinish] = useState(false);
   const [tab, setTab] = useState(0);
+  const [tagName, setTagName] = useState("全部");
+  const history = useHistory();
   useEffect(() => {
+    getPlayListCategory();
     getPlayListHot().then((res: any) => {
-      setTag(res.tags.concat({ name: "精品分类" }));
+      setTag([
+        ...tags,
+        ...res.tags,
+        ...[
+          { name: "全部分类", navigation: true },
+          { name: "精品专区", navigation: true },
+        ],
+      ]);
     });
     getPlayListTop().then((res: any) => {
       setTopList(res.playlists);
@@ -88,17 +103,22 @@ function PlayList() {
   const tabChange = (val: number) => {
     if (val === tab) return;
     setTab(val);
+    init(val, tagName);
+  };
+  const init = (tab: number, tagName: string) => {
     setFinish(false);
     pageNo.current = 1;
     setTopList([]);
-    getPlayListTop({ order: val === 0 ? "hot" : "new" }).then((res: any) => {
-      setTopList(res.playlists);
-      if (!res.more) {
-        setFinish(true);
-        return;
+    getPlayListTop({ order: tab === 0 ? "hot" : "new", cat: tagName }).then(
+      (res: any) => {
+        setTopList(res.playlists);
+        if (!res.more) {
+          setFinish(true);
+          return;
+        }
+        pageNo.current++;
       }
-      pageNo.current++;
-    });
+    );
   };
   const onLoad = () => {
     if (!load.current) {
@@ -106,6 +126,7 @@ function PlayList() {
       getPlayListTop({
         offset: (pageNo.current - 1) * 50,
         order: tab === 0 ? "hot" : "new",
+        cat: tagName,
       })
         .then((res: any) => {
           setTopList(topList.concat(res.playlists));
@@ -120,15 +141,31 @@ function PlayList() {
         });
     }
   };
+  const changeList = (name: string) => {
+    if (name === "精品专区") {
+      history.push("/boutique");
+      return;
+    }
+    if (name === "全部分类") {
+      history.push("/allcategory");
+      return;
+    }
+    setTagName(name);
+    init(tab, name);
+  };
   return (
     <Loadmore onload={onLoad} finished={finished}>
       <Wrap>
         <div className="category">
           {tags.map((tag, index) => {
             return (
-              <div className="tag" key={index}>
+              <div
+                className={`tag ${tagName === tag.name ? "tagActive" : ""}`}
+                key={index}
+                onClick={() => changeList(tag.name)}
+              >
                 {tag.name}
-                {index === tags.length - 1 && <Icon type="right" size="xs" />}
+                {tag.navigation && <Icon type="right" size="xs" />}
               </div>
             );
           })}
@@ -148,7 +185,7 @@ function PlayList() {
               最新
             </span>
           </div>
-          <Category type={2} title="精品歌单" list={topList} />
+          <Category type={2} title="热门歌单" list={topList} />
         </div>
       </Wrap>
     </Loadmore>
