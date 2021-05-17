@@ -86,6 +86,7 @@ function PlayList() {
     });
   }, []);
   const tabChange = (val: number) => {
+    if (val === tab) return;
     setTab(val);
     setFinish(false);
     pageNo.current = 1;
