@@ -16,6 +16,7 @@ import HotComment from "@/views/hotComment";
 import PlayList from "@/views/playList";
 import Boutique from "@/views/boutique";
 import AllCategory from "@/views/allCategory";
+import PlayListDetail from "@/views/playListDetail";
 interface Route {
   title?: string;
   component: any;
@@ -112,11 +113,19 @@ const routes: Route[] = [
     title: "精品专区",
     path: "/boutique",
     component: Boutique,
+    keepAlive: true,
   },
   {
     title: "全部分类",
     path: "/allcategory",
     component: AllCategory,
+    keepAlive: true,
+  },
+  {
+    title: "歌单展示",
+    path: "/playlistdetail",
+    component: PlayListDetail,
+    keepAlive: true,
   },
 ];
 
