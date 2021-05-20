@@ -71,7 +71,7 @@ const Wrap = styled.div`
   }
 `;
 function PlayList() {
-  const [tags, setTag] = useState<any[]>([{ name: "全部" }]);
+  const [tags, setTag] = useState<any[]>([]);
   const [topList, setTopList] = useState<any[]>([]);
   const pageNo = useRef(1);
   const load = useRef(false);
@@ -83,6 +83,7 @@ function PlayList() {
     getPlayListCategory();
     getPlayListHot().then((res: any) => {
       setTag([
+        ...[{ name: "全部" }],
         ...tags,
         ...res.tags,
         ...[

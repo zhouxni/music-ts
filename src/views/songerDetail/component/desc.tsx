@@ -58,7 +58,6 @@ function Desc(props: { id: string | null }) {
   const [open, setOpen] = useState(false);
   const history = useHistory();
   const { id } = props;
-  console.log(1);
   useEffect(() => {
     getArtistDetail({ id }).then((res) => {
       setDesc(res.data.artist);
@@ -76,10 +75,12 @@ function Desc(props: { id: string | null }) {
         >
           <p>{desc.briefDesc}</p>
         </div>
-        <div className="open" onClick={() => setOpen(!open)}>
-          更多歌手信息
-          <Icon size="xs" type={open ? "up" : "down"} />
-        </div>
+        {desc.briefDesc && (
+          <div className="open" onClick={() => setOpen(!open)}>
+            更多歌手信息
+            <Icon size="xs" type={open ? "up" : "down"} />
+          </div>
+        )}
       </div>
       {artists.length > 0 && (
         <div className="simi">

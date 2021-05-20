@@ -63,20 +63,20 @@ function Recomm() {
   ];
   return (
     <>
-      {banners.length > 0 && (
-        <Carousel infinite autoplay>
-          {banners.map((banner: any, index) => {
-            return (
-              <img
-                key={index}
-                alt=""
-                src={banner.pic}
-                style={{ width: px2rem(375) }}
-              />
-            );
-          })}
-        </Carousel>
-      )}
+        {banners.length > 0 && (
+          <Carousel infinite autoplay>
+            {banners.map((banner: any, index) => {
+              return (
+                <img
+                  key={index}
+                  alt=""
+                  src={banner.pic}
+                  style={{ width: px2rem(375) }}
+                />
+              );
+            })}
+          </Carousel>
+        )}
       <TabWrap>
         {tabs.map((tab, index) => {
           return (
@@ -102,7 +102,7 @@ function Recomm() {
           );
         })}
       </TabWrap>
-      <div style={{padding:`0 ${px2rem(8)}`}}>
+      <div style={{ padding: `0 ${px2rem(8)}` }}>
         <Category title="推荐mv" list={mvList} type={1} />
         <Category title="推荐新音乐" list={newSongList} type={0} />
         <Category title="推荐歌单" list={recommSongList} type={2} />

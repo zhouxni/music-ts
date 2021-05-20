@@ -87,31 +87,31 @@ function SongerDetail(props: any) {
   }, [id]);
   return (
     <Wrap>
-      {Object.keys(artist).length > 0 && (
-        <div className="header">
-          <IconWrap onClick={() => history.goBack()}>
-            <Icon type="left" color="#fff" />
-          </IconWrap>
-          <img alt="" src={artist.img1v1Url} />
-          <div className="header_mess">
-            <h3>{artist.name}</h3>
-            <span>{artist.alias ? artist.alias[0] : ""}</span>
-            <br />
-            <Button
-              style={{
-                borderRadius: px2rem(20),
-                fontSize: px2rem(16),
-                margin: `${px2rem(8)} 0 0`,
-                width: px2rem(95),
-              }}
-              fontColor="#e4e0df"
-              color="#b7b1b1"
-            >
-              + 收藏
-            </Button>
+        {Object.keys(artist).length > 0 && (
+          <div className="header">
+            <IconWrap onClick={() => history.goBack()}>
+              <Icon type="left" color="#fff" />
+            </IconWrap>
+            <img alt="" src={artist.img1v1Url} />
+            <div className="header_mess">
+              <h3>{artist.name}</h3>
+              <span>{artist.alias ? artist.alias[0] : ""}</span>
+              <br />
+              <Button
+                style={{
+                  borderRadius: px2rem(20),
+                  fontSize: px2rem(16),
+                  margin: `${px2rem(8)} 0 0`,
+                  width: px2rem(95),
+                }}
+                fontColor="#e4e0df"
+                color="#b7b1b1"
+              >
+                + 收藏
+              </Button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
       <Tabs
         tabBarUnderlineStyle={{ borderColor: "#ffdf20" }}
         tabBarTextStyle={{ color: "#828282" }}
