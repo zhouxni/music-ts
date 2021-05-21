@@ -59,24 +59,24 @@ function Recomm() {
       path: "/rank",
     },
     { title: "歌单", icon: "icon-gedan", color: "#7bd8bd", path: "/playlist" },
-    { title: "电台", icon: "icon-diantai2", color: "#fac54f" },
+    { title: "电台", icon: "icon-diantai2", color: "#fac54f", path: "/dj" },
   ];
   return (
     <>
-        {banners.length > 0 && (
-          <Carousel infinite autoplay>
-            {banners.map((banner: any, index) => {
-              return (
-                <img
-                  key={index}
-                  alt=""
-                  src={banner.pic}
-                  style={{ width: px2rem(375) }}
-                />
-              );
-            })}
-          </Carousel>
-        )}
+      {banners.length > 0 && (
+        <Carousel infinite autoplay>
+          {banners.map((banner: any, index) => {
+            return (
+              <img
+                key={index}
+                alt=""
+                src={banner.pic}
+                style={{ width: px2rem(375) }}
+              />
+            );
+          })}
+        </Carousel>
+      )}
       <TabWrap>
         {tabs.map((tab, index) => {
           return (

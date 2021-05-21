@@ -25,3 +25,7 @@ export const getUrlQuery = (search: string) => {
   const paramsString = search.substring(1);
   return new URLSearchParams(paramsString);
 };
+
+export const traceNumber = (num: number) => {
+  return String(num).length > 4 ? (num / 10000).toFixed(2) + "万" : num;
+};

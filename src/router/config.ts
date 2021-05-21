@@ -17,6 +17,7 @@ import PlayList from "@/views/playList";
 import Boutique from "@/views/boutique";
 import AllCategory from "@/views/allCategory";
 import PlayListDetail from "@/views/playListDetail";
+import Dj from "@/views/dj";
 interface Route {
   title?: string;
   component: any;
@@ -125,6 +126,12 @@ const routes: Route[] = [
     title: "歌单展示",
     path: "/playlistdetail",
     component: PlayListDetail,
+    keepAlive: true,
+  },
+  {
+    title: "电台",
+    path: "/dj",
+    component: Dj,
     keepAlive: true,
   },
 ];
