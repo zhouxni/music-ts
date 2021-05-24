@@ -1,10 +1,10 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { DjCatelist, DjList } from "@Api/dj";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import { traceNumber } from "@/util";
-import Loadmore from "@Component/loadmore";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useHistory } from "react-router-dom";
 const Wrap = styled.div`
   height: 100%;
   display: flex;
@@ -39,9 +39,7 @@ function Dj() {
   const [cates, setCate] = useState([]);
   const [tab, setTab] = useState(-1);
   const [list, setList] = useState([]);
-  const [finished, setFinish] = useState(false);
-  const pageNo = useRef(1);
-  const load = useRef(false);
+  const history = useHistory();
   useEffect(() => {
     DjCatelist().then((res: any) => {
       setCate(res.categories);
@@ -52,54 +50,20 @@ function Dj() {
         return -1;
       });
       if (res.categories.length > 0) {
-        getList(res.categories[0].id, pageNo.current);
+        getList(res.categories[0].id);
       }
     });
   }, []);
-  const getList = (tab: number, page: number) => {
-    if (!load.current) {
-      load.current = true;
-      DjList({ type: tab, offset: (page - 1) * 10 })
-        .then((res: any) => {
-          page === 1
-            ? setList(res.djRadios)
-            : setList(list.concat(res.djRadios));
-          if (!res.hasMore) {
-            setFinish(true);
-            return;
-          }
-          pageNo.current++;
-        })
-        .finally(() => {
-          load.current = false;
-        });
-    }
-  };
-  const onLoad = () => {
-    getList(tab, pageNo.current);
-    // if (!load.current) {
-    //   load.current = true;
-    //   DjList({ type: tab, offset: (pageNo.current - 1) * 10 })
-    //     .then((res: any) => {
-    //       setList(list.concat(res.djRadios));
-    //       if (!res.hasMore) {
-    //         setFinish(true);
-    //         return;
-    //       }
-    //       pageNo.current++;
-    //     })
-    //     .finally(() => {
-    //       load.current = false;
-    //     });
-    // }
+  const getList = (tab: number) => {
+    DjList({ type: tab }).then((res: any) => {
+      setList(res.djRadios);
+    });
   };
   const tabChange = (type: number) => {
     if (tab === type) return;
     setTab(type);
-    setFinish(false);
     setList([]);
-    pageNo.current = 1;
-    getList(type, pageNo.current);
+    getList(type);
   };
   return (
     <Wrap>
@@ -116,30 +80,32 @@ function Dj() {
           );
         })}
       </div>
-      <div style={{ flex: "1" }}>
-        <Loadmore finished={finished} onload={onLoad}>
-          {list.map((dj: any, index) => {
-            return (
-              <div key={index} className="dj">
-                <LazyLoadImage src={dj.picUrl} />
-                <div className="dj_info">
-                  <h3>{dj.name}</h3>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      color: "#8D8D8D",
-                      marginTop: px2rem(8),
-                    }}
-                  >
-                    <i className="iconfont icon-play1"></i>
-                    {traceNumber(dj.playCount)}
-                  </div>
+      <div style={{ flex: "1", overflow: "auto" }}>
+        {list.map((dj: any, index) => {
+          return (
+            <div
+              key={index}
+              className="dj"
+              onClick={() => history.push(`/djprogram?id=${dj.id}`)}
+            >
+              <LazyLoadImage src={dj.picUrl} />
+              <div className="dj_info">
+                <h3>{dj.name}</h3>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    color: "#8D8D8D",
+                    marginTop: px2rem(8),
+                  }}
+                >
+                  <i className="iconfont icon-play1"></i>
+                  {traceNumber(dj.playCount)}
                 </div>
               </div>
-            );
-          })}
-        </Loadmore>
+            </div>
+          );
+        })}
       </div>
     </Wrap>
   );
