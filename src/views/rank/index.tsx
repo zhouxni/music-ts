@@ -105,7 +105,7 @@ function Rank() {
           );
         })}
       <div className="official">
-        <h3>官方榜</h3>
+        {rankList.length > 0 && <h3>官方榜</h3>}
         <div className="official_list">
           {rankList
             .filter((rank: any) => rank.tracks.length === 0)

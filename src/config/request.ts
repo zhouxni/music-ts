@@ -18,7 +18,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     Toast.hide();
-    return response.data.code === 200 ? response.data : Promise.reject();
+    return response.data.code === 200 || response.data.success
+      ? response.data
+      : Promise.reject();
   },
   (error) => {
     Toast.hide();

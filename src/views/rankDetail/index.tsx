@@ -152,10 +152,6 @@ function RankDetail(props: any) {
           return (
             <ListItem
               key={index}
-              style={{
-                opacity: song.mv === 0 ? "0.5" : "1",
-                pointerEvents: song.mv === 0 ? "none" : "auto",
-              }}
               onClick={() => {
                 toMusic(song.id);
               }}
@@ -165,7 +161,7 @@ function RankDetail(props: any) {
                 {song.ar.map((ar: any) => ar.name).join("/")}
                 <span> - {song.al.name}</span>
               </p>
-              {song.mv >= 0 && (
+              {song.mv > 0 && (
                 <i
                   className="iconfont icon-boshiweb_bofang"
                   onClick={(e) => {

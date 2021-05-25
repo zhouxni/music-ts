@@ -33,3 +33,16 @@ export const Djprogramdetail = (params: { id: number }) => {
     params,
   });
 };
+
+export const Djcomment = (params: { id: string | null; offset?: number }) => {
+  return request({
+    url: "/comment/dj",
+    params,
+  });
+};
+
+export const Djbanner = () => {
+  return request({
+    url: "/dj/banner",
+  });
+};

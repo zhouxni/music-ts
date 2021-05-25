@@ -3,8 +3,9 @@ import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import "@/assets/icon/iconfont.css";
 import { useHistory } from "react-router-dom";
-import { getSongs } from "@Api/songer";
+import { checkMusic, getSongs } from "@Api/songer";
 import Loadmore from "@/component/loadmore";
+import { Toast } from "antd-mobile";
 const ListItem = styled.div`
   padding: ${px2rem(15)};
   padding-right: ${px2rem(60)};
@@ -68,24 +69,29 @@ function Song(props: { id: string | null }) {
         });
     }
   };
+  const toMusic = (id: number) => {
+    checkMusic({ id })
+      .then(() => {
+        history.push(`/playmusic?id=${id}`);
+      })
+      .catch(() => {
+        Toast.info("亲爱的,暂无版权");
+      });
+  };
   return (
     <Loadmore onload={onLoad} finished={finished}>
       {list.map((song, index) => {
         return (
           <ListItem
             key={index}
-            style={{
-              opacity: song.mv === 0 ? "0.5" : "1",
-              pointerEvents: song.mv === 0 ? "none" : "auto",
-            }}
-            onClick={() => history.push(`/playmusic?id=${song.id}`)}
+            onClick={() => toMusic(song.id)}
           >
             <h3>{song.name}</h3>
             <p>
               {song.ar.map((ar: any) => ar.name).join("/")}
               <span> - {song.al.name}</span>
             </p>
-            {song.mv >= 0 && (
+            {song.mv > 0 && (
               <i
                 className="iconfont icon-boshiweb_bofang"
                 onClick={(e) => {

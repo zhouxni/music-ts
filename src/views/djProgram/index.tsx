@@ -99,7 +99,7 @@ function PlayDj(props: any) {
       <Loadmore onload={getList} finished={finished}>
         {list.map((dj: any, index: number) => {
           return (
-            <ListItem key={index} onClick={() => history.push(`/playmusic?id=${dj.mainSong.id}`)}>
+            <ListItem key={index} onClick={() => history.push(`/playdj?id=${dj.mainSong.id}`)}>
               <h3>{dj.name}</h3>
               <Icon type="right" color="#acb2b6" />
             </ListItem>

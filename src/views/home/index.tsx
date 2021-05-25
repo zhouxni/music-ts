@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import style from "./index.module.scss";
 import "@/assets/icon/iconfont.css";
 import Search from "./search";
+import { useHistory } from "react-router-dom";
 const Tab = styled.div`
   width: 100%;
   height: ${px2rem(50)};
@@ -16,9 +17,10 @@ const Tab = styled.div`
 `;
 function Home(props: { children: any[] }) {
   const { children } = props;
+  const history = useHistory();
   return (
     <>
-      <Search />
+      <Search onClick={() => history.push("/search")} />
       <div style={{ height: `calc(100% - ${px2rem(100)})` }}>
         {children &&
           children.map(({ path, component }, index) => {

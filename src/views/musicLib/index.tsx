@@ -7,7 +7,7 @@ function MusicLib() {
   const tabs = [{ title: "推荐" }, { title: "电台" }];
   return (
     <>
-      <Tabs
+      {/* <Tabs
         tabBarBackgroundColor="#ffdf20"
         tabBarUnderlineStyle={{ display:'none' }}
         tabBarTextStyle={{ color: "#76670d" }}
@@ -19,7 +19,8 @@ function MusicLib() {
       >
         {tabIndex === 0 && <Recomm />}
         {tabIndex === 1 && <Transceiver />}
-      </Tabs>
+      </Tabs> */}
+      <Recomm />
     </>
   );
 }

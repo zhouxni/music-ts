@@ -19,6 +19,9 @@ import AllCategory from "@/views/allCategory";
 import PlayListDetail from "@/views/playListDetail";
 import Dj from "@/views/dj";
 import DjProgram from "@/views/djProgram";
+import PlayDj from "@/views/playDj";
+import DjRank from "@/views/djRank";
+import Search from "@/views/search";
 interface Route {
   title?: string;
   component: any;
@@ -139,6 +142,23 @@ const routes: Route[] = [
     title: "电台节目",
     path: "/djprogram",
     component: DjProgram,
+    keepAlive: true,
+  },
+  {
+    title: "畅听电台",
+    path: "/playdj",
+    component: PlayDj,
+    keepAlive: true,
+  },
+  {
+    title: "电台榜单",
+    path: "/djrank",
+    component: DjRank,
+    keepAlive: true,
+  },
+  {
+    path: "/search",
+    component: Search,
     keepAlive: true,
   },
 ];
