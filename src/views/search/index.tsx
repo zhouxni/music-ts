@@ -40,6 +40,7 @@ const Wrap = styled.div`
   }
   .tabCon {
     height: 100%;
+    background: #fff;
   }
 `;
 function Search() {
@@ -52,6 +53,7 @@ function Search() {
   const tabs = [{ title: "单曲" }, { title: "歌单" }];
   const [tabIndex, setTabIndex] = useState(0);
   const [keywords, setKeyWords] = useState("");
+  const [showRlist, setShowRlist] = useState(false);
   useEffect(() => {
     Searchhot().then((res) => {
       setList(res.data);
@@ -65,11 +67,13 @@ function Search() {
     } else {
       setSlist([]);
       setRlist([]);
+      setShowRlist(false);
     }
   };
   const search = (keywords: string) => {
     setKeyWords(keywords);
     setTabIndex(0);
+    setFinish(false);
     pageNo.current = 1;
     getList(keywords, 1);
   };
@@ -80,6 +84,7 @@ function Search() {
         .then((res: any) => {
           if (slist.length > 0) {
             setSlist([]);
+            setShowRlist(true);
           }
           switch (type) {
             case 1:
@@ -118,7 +123,7 @@ function Search() {
   return (
     <Wrap>
       <NavSearch onInput={onInput} />
-      {slist.length === 0 && rlist.length === 0 && (
+      {slist.length === 0 && !showRlist && (
         <div className="search">
           <h3>热门搜索</h3>
           <div className="hots">
@@ -145,7 +150,7 @@ function Search() {
           </div>
         );
       })}
-      {rlist.length > 0 && slist.length === 0 && (
+      {showRlist && slist.length === 0 && (
         <div style={{ height: `calc(100% - ${px2rem(50)})` }}>
           <Tabs
             tabBarUnderlineStyle={{ borderColor: "#ffdf20" }}
@@ -155,6 +160,7 @@ function Search() {
             page={tabIndex}
             onChange={(tab, index) => {
               setTabIndex(index);
+              setRlist([]);
               pageNo.current = 1;
               switch (index) {
                 case 0:
@@ -180,7 +186,10 @@ function Search() {
             )}
             {tabIndex === 1 && (
               <div className="tabCon">
-                <Loadmore>
+                <Loadmore
+                  finished={finished}
+                  onload={() => getList(keywords, 1000)}
+                >
                   <Song list={rlist} type={1000} />
                 </Loadmore>
               </div>

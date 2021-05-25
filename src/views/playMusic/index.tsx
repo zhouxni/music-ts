@@ -29,6 +29,7 @@ function PlayMv(props: any) {
   const load = useRef(false);
   const [finished, setFinish] = useState(false);
   useEffect(() => {
+    (document.querySelector(".loadmore") as HTMLElement).scrollTop = 0;
     getSongUrl({ id }).then((res) => {
       setUrl(res.data[0].url);
     });
@@ -66,7 +67,7 @@ function PlayMv(props: any) {
     }
   };
   return (
-    <Wrap>
+    <Wrap id="wrap">
       <Loadmore onload={loadmore} finished={finished}>
         <div
           id="play"

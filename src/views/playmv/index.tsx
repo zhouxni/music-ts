@@ -15,7 +15,7 @@ const Wrap = styled.div`
     z-index: 1;
   }
 `;
-function PlayMv(props:any) {
+function PlayMv(props: any) {
   const [comment, setComment] = useState([]);
   const [newComment, setNewComment] = useState([]);
   const id = getUrlQuery(props.location.search).get("id");
@@ -24,6 +24,7 @@ function PlayMv(props:any) {
   const [finished, setFinish] = useState(false);
   const [url, setUrl] = useState("");
   useEffect(() => {
+    (document.querySelector(".loadmore") as HTMLElement).scrollTop = 0;
     getMv({ id }).then((res) => {
       setUrl(res.data.url);
     });

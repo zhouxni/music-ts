@@ -79,7 +79,14 @@ function Song(props: any) {
                 {item.alia[0] && <p>{item.alia[0]}</p>}
               </div>
             )}
-            {type === 1000 && <div className="type type_1000">{item.name}</div>}
+            {type === 1000 && (
+              <div
+                className="type type_1000"
+                onClick={() => history.push(`/rankDetail?id=${item.id}`)}
+              >
+                {item.name}
+              </div>
+            )}
           </div>
         );
       })}
