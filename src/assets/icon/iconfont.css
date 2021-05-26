@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2544056 */
-  src: url('iconfont.woff2?t=1621910491792') format('woff2'),
-       url('iconfont.woff?t=1621910491792') format('woff'),
-       url('iconfont.ttf?t=1621910491792') format('truetype');
+  src: url('iconfont.woff2?t=1622023538930') format('woff2'),
+       url('iconfont.woff?t=1622023538930') format('woff'),
+       url('iconfont.ttf?t=1622023538930') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-qingkong-:before {
+  content: "\e68e";
 }
 
 .icon-leimupinleifenleileibie2:before {

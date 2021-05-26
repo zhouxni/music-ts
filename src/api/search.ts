@@ -23,3 +23,20 @@ export const SearchResult = (params: {
     params,
   });
 };
+
+export const Videourl = (params: { id: string | null }) => {
+  return request({
+    url: "/video/url",
+    params,
+  });
+};
+
+export const Videocomment = (params: {
+  id: string | null;
+  offset?: number;
+}) => {
+  return request({
+    url: "/comment/video",
+    params,
+  });
+};

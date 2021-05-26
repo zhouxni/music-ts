@@ -45,13 +45,13 @@ function Login() {
     }
     if (phone.test(account)) {
       cellphone({ phone: account, password }).then((res: any) => {
-        Cookies.set("token", Encrypt(res.token));
-        Cookies.set('security',Encrypt(res.cookie));
+        Cookies.set("token", (res.token));
+        Cookies.set('security',(res.cookie));
       });
     } else {
       emaillogin({ email: account, password }).then((res: any) => {
-        Cookies.set("token", Encrypt(res.token));
-        Cookies.set('security',Encrypt(res.cookie));
+        Cookies.set("token", (res.token));
+        Cookies.set('security',(res.cookie));
       });
     }
   };

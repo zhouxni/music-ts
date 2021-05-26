@@ -1,6 +1,6 @@
 import request from "@/config/request";
-// import Cookies from "js-cookie";
-// import { Decrypt } from "@Config/secret";
+import Cookies from "js-cookie";
+import { Decrypt } from "@Config/secret";
 export const getSonger = (params: {
   type?: number;
   area?: number;
@@ -173,7 +173,9 @@ export const getSimiArtist = (params: { id: string | null }) => {
 export const getPlayList = (params: { id: string | null }) => {
   return request({
     url: "/playlist/detail",
-    params,
+    params: Object.assign({}, params, {
+      cookie: Cookies.get("security") || "",
+    }),
   });
 };
 
@@ -225,7 +227,10 @@ export const getHighqualityTag = () => {
   });
 };
 
-export const getHighqualityList = (params: { cat?: string; before?: number }) => {
+export const getHighqualityList = (params: {
+  cat?: string;
+  before?: number;
+}) => {
   return request({
     url: "/top/playlist/highquality",
     params,

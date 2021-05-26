@@ -5,8 +5,6 @@ import px2rem from "@/util/px2rem";
 import { NavLink } from "react-router-dom";
 import style from "./index.module.scss";
 import "@/assets/icon/iconfont.css";
-import Search from "./search";
-import { useHistory } from "react-router-dom";
 const Tab = styled.div`
   width: 100%;
   height: ${px2rem(50)};
@@ -14,14 +12,14 @@ const Tab = styled.div`
   position: fixed;
   left: 0;
   bottom: 0;
+  z-index: 100;
+  background-color: #fff;
 `;
 function Home(props: { children: any[] }) {
   const { children } = props;
-  const history = useHistory();
   return (
     <>
-      <Search onClick={() => history.push("/search")} />
-      <div style={{ height: `calc(100% - ${px2rem(100)})` }}>
+      <div style={{ height: `calc(100% - ${px2rem(50)})` }}>
         {children &&
           children.map(({ path, component }, index) => {
             return (

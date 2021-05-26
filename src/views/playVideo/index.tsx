@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { getUrlQuery } from "@/util";
+import { Videourl, Videocomment } from "@Api/search";
 import { getMv, getMvComment } from "@Api/songer";
 import styled from "styled-components";
 import "@/assets/icon/iconfont.css";
@@ -18,7 +19,7 @@ const Wrap = styled.div`
     background-color: #000;
   }
 `;
-function PlayMv(props: any) {
+function PlayVideo(props: any) {
   const [comment, setComment] = useState([]);
   const [newComment, setNewComment] = useState([]);
   const id = getUrlQuery(props.location.search).get("id");
@@ -28,10 +29,10 @@ function PlayMv(props: any) {
   const [url, setUrl] = useState("");
   useEffect(() => {
     (document.querySelector(".loadmore") as HTMLElement).scrollTop = 0;
-    getMv({ id }).then((res) => {
-      setUrl(res.data.url);
+    Videourl({ id }).then((res: any) => {
+      setUrl(res.urls[0].url);
     });
-    getMvComment({ id }).then((res: any) => {
+    Videocomment({ id }).then((res: any) => {
       setComment(res.hotComments);
       setNewComment(res.comments);
       if (res.comments.length > res.total) {
@@ -44,7 +45,7 @@ function PlayMv(props: any) {
   const loadmore = () => {
     if (!load.current) {
       load.current = true;
-      getMvComment({
+      Videocomment({
         id,
         offset: (pageNo.current - 1) * 20,
       })
@@ -70,14 +71,14 @@ function PlayMv(props: any) {
         <Comment
           bottomMsg={comment.length === 0 ? "" : "全部热门评论"}
           id={id}
-          type={1}
+          type={5}
           title="热门评论"
           list={comment}
         />
-        <Comment type={1} title="最新评论" list={newComment} />
+        <Comment type={5} title="最新评论" list={newComment} />
       </Loadmore>
     </Wrap>
   );
 }
 
-export default memo(PlayMv);
+export default memo(PlayVideo);

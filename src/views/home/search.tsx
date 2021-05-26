@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
 import "@/assets/icon/iconfont.css";
@@ -9,7 +9,7 @@ const Wrap = styled.div`
   align-items: center;
   position: relative;
   background-color: #ffdf20;
-  i {
+  .iconfont {
     position: absolute;
     top: 50%;
     left: ${px2rem(10)};
@@ -18,6 +18,12 @@ const Wrap = styled.div`
   .icon-sousuo {
     left: ${px2rem(5)};
     font-size: ${px2rem(22)};
+  }
+  .icon-qingkong- {
+    right: ${px2rem(5)};
+    left: auto;
+    color: #999;
+    font-size: ${px2rem(18)};
   }
 `;
 const Input = styled.input`
@@ -30,11 +36,23 @@ const Input = styled.input`
   padding: 0 ${px2rem(30)};
 `;
 function Search(props: any) {
-  const { onClick, onInput } = props;
+  const { onClick, onInput, keywords, iconClick, icon: Icon } = props;
   const [value, setVal] = useState("");
+  useEffect(() => {
+    setVal(keywords || "");
+  }, [keywords]);
   return (
     <Wrap>
-      <i className="iconfont icon-gengduo"></i>
+      {typeof Icon === "string" ? (
+        <i
+          className={`iconfont ${Icon}`}
+          onClick={() => {
+            if (iconClick) iconClick();
+          }}
+        ></i>
+      ) : (
+        <div className="iconfont">{Icon}</div>
+      )}
       <div style={{ width: "75%", position: "relative" }}>
         <i className="iconfont icon-sousuo"></i>
         <Input
@@ -49,9 +67,17 @@ function Search(props: any) {
             if (onInput) onInput(e.target.value);
           }}
         />
+        {value.length > 0 && (
+          <i
+            className="iconfont icon-qingkong-"
+            onClick={() => {
+              setVal("");
+              onInput("");
+            }}
+          ></i>
+        )}
       </div>
     </Wrap>
   );
 }
-
 export default memo(Search);

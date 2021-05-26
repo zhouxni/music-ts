@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { getUrlQuery } from "@/util/index";
-import { checkMusic, getPlayList } from "@Api/songer";
+import { checkMusic, getMusicDetail, getPlayList } from "@Api/songer";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import px2rem from "@/util/px2rem";
@@ -88,11 +88,20 @@ const ListItem = styled.div`
 function RankDetail(props: any) {
   const history = useHistory();
   const [rank, setRank] = useState<any>({});
+  const [list, setList] = useState<any>([]);
   const id = getUrlQuery(props.location.search).get("id");
   useEffect(() => {
     (document.querySelector("#wrapRank") as HTMLElement).scrollTop = 0;
     getPlayList({ id }).then((res: any) => {
       setRank(res.playlist);
+      const ids = res.playlist.trackIds
+        .map((item: any) => {
+          return item.id;
+        })
+        .join(",");
+      getMusicDetail({ ids }).then((res: any) => {
+        setList(res.songs);
+      });
     });
   }, [id]);
   const toMusic = (id: number) => {
@@ -147,8 +156,8 @@ function RankDetail(props: any) {
           </div>
         </div>
       )}
-      {rank.tracks &&
-        rank.tracks.map((song: any, index: any) => {
+      {list &&
+        list.map((song: any, index: any) => {
           return (
             <ListItem
               key={index}

@@ -22,6 +22,7 @@ import DjProgram from "@/views/djProgram";
 import PlayDj from "@/views/playDj";
 import DjRank from "@/views/djRank";
 import Search from "@/views/search";
+import PlayVideo from "@/views/playVideo";
 interface Route {
   title?: string;
   component: any;
@@ -159,6 +160,12 @@ const routes: Route[] = [
   {
     path: "/search",
     component: Search,
+    keepAlive: true,
+  },
+  {
+    title: "精彩视频",
+    path: "/playvideo",
+    component: PlayVideo,
     keepAlive: true,
   },
 ];

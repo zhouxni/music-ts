@@ -29,3 +29,15 @@ export const getUrlQuery = (search: string) => {
 export const traceNumber = (num: number) => {
   return String(num).length > 4 ? (num / 10000).toFixed(2) + "万" : num;
 };
+
+export const traceTime = (num: number) => {
+  return `${
+    num / 1000 / 60 > 9
+      ? Math.floor(num / 1000 / 60)
+      : "0" + Math.floor(num / 1000 / 60)
+  }:${
+    (num / 1000) % 60 > 9
+      ? Math.floor((num / 1000) % 60)
+      : "0" + Math.floor((num / 1000) % 60)
+  }`;
+};
